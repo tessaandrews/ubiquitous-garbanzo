@@ -7,31 +7,31 @@ const resolvers = {
       },
     },
     Mutation: {
-      login: async (parent, args) => {
-        const matchup = await Matchup.create(args);
-        return matchup;
+      login: async (parent, {user}) => {
+        const users = await User.create(user);
+        return users;
       },
       addUser: async (parent, {auth}) => {
-        const auth = await Matchup.findOneAndUpdate(
+        const auths = await Matchup.findOneAndUpdate(
           {username },
           {password },
           {email }
         );
-        return auth;
+        return auths;
           },
-    saveBook: async (parent, {auth}) => {
-    const author = await User.findById(
+    saveBook: async (parent, {author}) => {
+    const authors = await User.findById(
         {array},
         {description},
         {title},
-        {bookId}
+        {id},
     );
-    return author;
+    return authors;
       },
       removeBook: async (parent, {bookId}) => {
-      const bookId = await Book.findOneAndDelete(
+      const bookIds = await Book.findOneAndDelete(
       );
-      return User;
+      return bookIds;
     },
 },
 }

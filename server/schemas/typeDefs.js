@@ -1,6 +1,6 @@
 const typeDefs = `
-  type Tech {
-    _id: ID!
+  type Query {
+    me: ID!
     name: String!
   }
 

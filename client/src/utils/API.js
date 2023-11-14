@@ -1,5 +1,5 @@
 // route to get logged in user's info (needs the token)
-export const GET_ME = (token) => {
+export const getMe = (token) => {
     return fetch('/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
@@ -8,7 +8,7 @@ export const GET_ME = (token) => {
     });
   };
   
-  export const ADD_USER = (userData) => {
+  export const addUser = (userData) => {
     return fetch('/api/users', {
       method: 'POST',
       headers: {
@@ -18,7 +18,7 @@ export const GET_ME = (token) => {
     });
   };
   
-  export const LOGIN_USER = (userData) => {
+  export const loginUser = (userData) => {
     return fetch('/api/users/login', {
       method: 'POST',
       headers: {
@@ -29,7 +29,7 @@ export const GET_ME = (token) => {
   };
   
   // save book data for a logged in user
-  export const SAVE_BOOK = (bookData, token) => {
+  export const saveBook = (bookData, token) => {
     return fetch('/api/users', {
       method: 'PUT',
       headers: {
@@ -41,7 +41,7 @@ export const GET_ME = (token) => {
   };
   
   // remove saved book data for a logged in user
-  export const REMOVE_BOOK = (bookId, token) => {
+  export const removeBook = (bookId, token) => {
     return fetch(`/api/users/books/${bookId}`, {
       method: 'DELETE',
       headers: {
