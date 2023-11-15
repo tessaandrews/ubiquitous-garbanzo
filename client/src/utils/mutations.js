@@ -12,10 +12,9 @@ export const LOGIN_USER = gql`
 
 export const ADD_USER = gql`
   mutation addUser ($name: name!) {
-    addUser(profileId: $profileId, skill: $skill) {
+    addUser(profileId: $profileId) {
         _id
         name
-        skills
     }
   }
 `;

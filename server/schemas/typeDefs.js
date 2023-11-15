@@ -1,25 +1,36 @@
 const typeDefs = `
-  type Query {
-    me: ID!
-    name: String!
+  type User {
+    _id: Int!
+    username: String!
+    email: String!
+    bookCount: String!
+    savedBooks: String!
   }
 
-  type Matchup {
-    _id: ID!
-    tech1: String!
-    tech2: String!
-    tech1_votes: Int
-    tech2_votes: Int
+  type Book {
+    bookId: String!
+    authors: String!
+    description: String!
+    title: String!
+    image: String!
+    link: String!
   }
 
-  type Query {
-    tech: [Tech]
-    matchups(_id: String): [Matchup]
+  type Auth {
+    token: Int!
+    user: [User]
+  }
+
+
+type Query {
+    me: [User]
   }
 
   type Mutation {
-    createMatchup(tech1: String!, tech2: String!): Matchup
-    createVote(_id: String!, techNum: Int!): Matchup
+    login(email: String!, pass: String!): [Auth]
+    addUser(username: String!, email : String!, password: String!): [Auth]
+    saveBook(array: String!, description: String!, title: String!, bookId: Int!): [User]
+    removeBook(bookId: Int!): [User]
   }
 `;
 
