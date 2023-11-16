@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useQuery } from 'react';
 import {
   Container,
   Card,
@@ -26,7 +26,7 @@ const SavedBooks = () => {
           return false;
         }
 
-        const response = await getMe(token);
+        const response = await GET_ME(token);
 
         if (!response.ok) {
           throw new Error('something went wrong!');
