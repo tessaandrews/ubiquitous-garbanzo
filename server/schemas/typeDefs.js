@@ -30,7 +30,7 @@ type User {
 
   type Mutation {
     login(username: String!, email: String!, password: String!): Auth
-    addUser(username: String!, email : String!, password: String!): Auth
+    createUser(username: String!, email : String!, password: String!): Auth
     saveBook(array: String!, title: String!, description: String!, bookId: String!, image: String!, link: String!): User
     removeBook(bookId: String!): User
   }

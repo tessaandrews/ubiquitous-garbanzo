@@ -1,4 +1,5 @@
-const { Book , User} = require('../models');
+const { User} = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -6,29 +7,29 @@ const resolvers = {
         if (context.user) {
           return User.findOne({ _id: context.user._id }).populate('users');
         }
-        throw AuthenticationError;
+       
       },
     },
 
     Mutation: {
-
-      async login({ body }, res) {
-        const user = await User.findOne({ $or: [{ username: body.username }, { email: body.email }] });
-        if (!user) {
-          return res.status(400).json({ message: "Can't find this user" });
-        }
-    
-        const correctPw = await user.isCorrectPassword(body.password);
-    
-        if (!correctPw) {
-          return res.status(400).json({ message: 'Wrong password!' });
-        }
+      createUser: async (parent, args) => {
+        const user = await User.create(args);
         const token = signToken(user);
-        res.json({ token, user });
+  
+        return { token, user };
       },
+
+      login: async (parent, { email, password }) => {
+        const user = await User.findOne({ email });  
+        const token = signToken(user);
+  
+        return { token, user };
+      },
+
+
       // save a book to a user's `savedBooks` field by adding it to the set (to prevent duplicates)
       // user comes from `req.user` created in the auth middleware function
-      async saveBook({ user, body }, res) {
+      saveBook: async (parent, { user, body }, res) => {
         console.log(user);
         try {
           const updatedUser = await User.findOneAndUpdate(
@@ -43,7 +44,7 @@ const resolvers = {
         }
       },
       // remove a book from `savedBooks`
-      async removeBook({ user, params }, res) {
+      removeBook: async (parent, { user, params }, res) => {
         const updatedUser = await User.findOneAndUpdate(
           { _id: user._id },
           { $pull: { savedBooks: { bookId: params.bookId } } },
